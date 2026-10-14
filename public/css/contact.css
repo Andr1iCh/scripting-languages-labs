@@ -1,0 +1,226 @@
+/* Стилі підключаються лише на сторінках контактів. */
+.contact-page {
+    flex: 0 0 auto;
+    width: calc(100% - 32px);
+    max-width: 900px;
+    margin: 32px auto;
+    padding: 0;
+    overflow: hidden;
+    background: rgba(22, 22, 26, 0.96);
+}
+
+.cinema-brand {
+    color: #fff;
+    white-space: nowrap;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+nav:has(.cinema-brand) {
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.contact-hero {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 240px;
+    padding: 32px;
+    background:
+        linear-gradient(0deg, rgba(12, 12, 16, 0.92), rgba(12, 12, 16, 0.2)),
+        url('../images/cinema-bg.jpg') center / cover no-repeat;
+}
+
+.contact-eyebrow {
+    color: #f3c4d1;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.contact-hero h1 {
+    margin: 12px 0 8px;
+    font-size: clamp(30px, 5vw, 42px);
+}
+
+.contact-hero p {
+    margin: 0;
+    color: #e3e3e5;
+    line-height: 1.6;
+}
+
+.contact-content {
+    padding: 30px 32px 32px;
+}
+
+.contact-content h2 {
+    margin: 0 0 12px;
+    font-size: 24px;
+}
+
+.contact-intro {
+    margin: 0 0 24px;
+    color: #c7c7cd;
+    line-height: 1.65;
+}
+
+.form-field {
+    margin-bottom: 20px;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.form-field input,
+.form-field textarea {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #55555e;
+    border-radius: 7px;
+    background: #29292f;
+    color: #fff;
+    font: inherit;
+    line-height: 1.5;
+}
+
+.form-field textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+    color: #aaaab2;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+    outline: 2px solid #df7f9b;
+    outline-offset: 2px;
+    border-color: #df7f9b;
+}
+
+.form-field .is-invalid {
+    border-color: #ff9baa;
+}
+
+.field-error {
+    margin: 8px 0 0;
+    color: #ffb0bd;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.field-hint {
+    margin: 7px 0 0;
+    color: #aaaab2;
+    font-size: 13px;
+}
+
+.contact-button {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    padding: 14px 18px;
+    border: 0;
+    border-radius: 7px;
+    background: #8e2d49;
+    color: #fff;
+    font: inherit;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.contact-button:hover {
+    background: #a33858;
+}
+
+.contact-button:focus-visible {
+    outline: 2px solid #f3c4d1;
+    outline-offset: 3px;
+}
+
+.contact-success {
+    padding-top: 40px;
+}
+
+.success-mark {
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    margin-bottom: 22px;
+    border-radius: 50%;
+    background: #273c32;
+    color: #a3e9bd;
+    font-size: 30px;
+}
+
+.contact-success h1 {
+    margin: 0 0 16px;
+    font-size: clamp(24px, 4vw, 32px);
+    line-height: 1.3;
+}
+
+.contact-summary {
+    margin: 24px 0;
+    padding: 20px;
+    border: 1px solid #44444d;
+    border-radius: 8px;
+    background: #242429;
+}
+
+.contact-summary dt {
+    margin-bottom: 8px;
+    color: #c7c7cd;
+    font-size: 14px;
+}
+
+.contact-summary dd {
+    margin: 0 0 20px;
+    overflow-wrap: anywhere;
+    line-height: 1.6;
+}
+
+.contact-summary dd:last-child {
+    margin-bottom: 0;
+}
+
+.submitted-message {
+    white-space: pre-wrap;
+}
+
+@media (max-width: 600px) {
+    nav:has(.cinema-brand) {
+        padding: 16px;
+    }
+
+    nav:has(.cinema-brand) .nav-right {
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .contact-page {
+        margin: 20px auto;
+    }
+
+    .contact-hero {
+        min-height: 200px;
+        padding: 24px 20px;
+    }
+
+    .contact-content {
+        padding: 24px 20px;
+    }
+
+}
+

@@ -31,3 +31,10 @@ Route::view(
     '/contact',
     'site.contact'
 )->name('site.contact');
+
+
+Route::get('/contact', [SiteController::class, 'contact'])
+    ->name('contact.form');
+
+Route::post('/contact', [SiteController::class, 'contactSubmit'])
+    ->name('contact.submit');
