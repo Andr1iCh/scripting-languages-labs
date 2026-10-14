@@ -54,6 +54,7 @@
     <a href="{{ url('/coming-soon') }}">Скоро у прокаті</a>
     <a href="{{ url('/sessions') }}">Сеанси</a>
     <a href="{{ url('/contact') }}">Контакти</a>
+    <a href="{{ url('/about') }}">Про застосунок</a>
 </nav>
 
 <main>

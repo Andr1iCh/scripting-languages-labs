@@ -21,3 +21,13 @@ Route::post(
     '/entry',
     [SiteController::class, 'entryStore']
 )->name('entry.store');
+
+Route::view(
+    '/about',
+    'site.about'
+)->name('site.about');
+
+Route::view(
+    '/contact',
+    'site.contact'
+)->name('site.contact');
