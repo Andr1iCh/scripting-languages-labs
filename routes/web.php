@@ -11,3 +11,13 @@ Route::get(
     '/say/{message?}',
     [SiteController::class, 'say']
 )->name('site.say');
+
+Route::get(
+    '/entry',
+    [SiteController::class, 'entry']
+)->name('entry.form');
+
+Route::post(
+    '/entry',
+    [SiteController::class, 'entryStore']
+)->name('entry.store');
