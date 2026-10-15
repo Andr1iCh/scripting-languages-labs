@@ -17,9 +17,32 @@
                 radial-gradient(circle at center, rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0.85) 100%),
                 url('{{ asset('images/cinema-bg.jpg') }}') center / cover fixed no-repeat;
         }
-        nav    { background: #5b1a2b; padding: 15px 20px; }
-        nav a  { color: #fff; text-decoration: none; margin-right: 20px; }
-        nav a:hover { text-decoration: underline; }
+        nav {
+            background: #5b1a2b;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .nav-right {
+            margin-left: auto;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-right a {
+            margin-right: 0;
+        }
         main {
             flex: 1;
             width: 100%;
@@ -45,18 +68,27 @@
             font-size: 14px;
         }
     </style>
+
+    @stack('styles')
 </head>
 <body>
 <nav>
-    <a href="{{ url('/') }}">Головна</a>
-    <a href="{{ url('/movies') }}">Фільми</a>
-    <a href="{{ url('/now-playing') }}">Зараз у кіно</a>
-    <a href="{{ url('/coming-soon') }}">Скоро у прокаті</a>
-    <a href="{{ url('/sessions') }}">Сеанси</a>
-    <a href="{{ url('/contact') }}">Контакти</a>
+    @hasSection('navigation')
+        @yield('navigation')
+    @else
+        <a href="{{ url('/') }}">Головна</a>
+        <a href="{{ url('/movies') }}">Фільми</a>
+        <a href="{{ url('/now-playing') }}">Зараз у кіно</a>
+        <a href="{{ url('/coming-soon') }}">Скоро у прокаті</a>
+        <a href="{{ url('/sessions') }}">Сеанси</a>
+        <div class="nav-right">
+            <a href="{{ url('/contact') }}">Контакти</a>
+            <a href="{{ url('/about') }}">Про застосунок</a>
+        </div>
+    @endif
 </nav>
 
-<main>
+<main class="@yield('main-class')">
     @yield('content')
 </main>
 
