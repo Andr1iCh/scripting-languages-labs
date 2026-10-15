@@ -24,6 +24,8 @@
         <dl class="contact-summary">
             <dt>Email</dt>
             <dd>{{ $contact['email'] }}</dd>
+            <dt>Номер телефону</dt>
+            <dd>{{ $contact['phone'] }}</dd>
             <dt>Ваше повідомлення</dt>
             <dd class="submitted-message">{{ $contact['message'] }}</dd>
         </dl>

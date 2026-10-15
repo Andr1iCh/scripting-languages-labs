@@ -72,6 +72,25 @@
             </div>
 
             <div class="form-field">
+                <label for="phone">Номер телефону</label>
+
+                <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    value="{{ old('phone') }}"
+                    placeholder="+380XXXXXXXXX"
+                    autocomplete="tel"
+                    required
+                    class="@error('phone') is-invalid @enderror"
+                >
+
+                @error('phone')
+                <p class="field-error">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="form-field">
                 <label for="message">Повідомлення</label>
                 <textarea
                     id="message"
