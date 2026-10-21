@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
-use Illuminate\Http\Request;
+use App\Http\Requests\CountryRequest;
 
 class CountryController extends Controller
 {
@@ -12,7 +12,10 @@ class CountryController extends Controller
      */
     public function index()
     {
-        //
+        $countries = Country::query()
+            ->orderBy('name')
+            ->paginate(5);
+        return view('country.index', compact('countries'));
     }
 
     /**
@@ -20,15 +23,18 @@ class CountryController extends Controller
      */
     public function create()
     {
-        //
+        return view('country.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CountryRequest $request)
     {
-        //
+        Country::create(
+            $request->validated()
+        );
+        return redirect()->route('country.index');
     }
 
     /**
@@ -36,7 +42,7 @@ class CountryController extends Controller
      */
     public function show(Country $country)
     {
-        //
+        return view('country.show', compact('country'));
     }
 
     /**
@@ -44,15 +50,18 @@ class CountryController extends Controller
      */
     public function edit(Country $country)
     {
-        //
+        return view('country.edit', compact('country'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Country $country)
-    {
-        //
+    public function update(
+        CountryRequest $request,
+        Country $country
+    ) {
+        $country->update($request->validated());
+        return redirect()->route('country.index');
     }
 
     /**
@@ -60,6 +69,7 @@ class CountryController extends Controller
      */
     public function destroy(Country $country)
     {
-        //
+        $country->delete();
+        return redirect()->route('country.index');
     }
 }
