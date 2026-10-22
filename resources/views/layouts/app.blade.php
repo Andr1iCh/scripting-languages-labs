@@ -77,7 +77,7 @@
         @yield('navigation')
     @else
         <a href="{{ url('/') }}">Головна</a>
-        <a href="{{ url('/movies') }}">Фільми</a>
+        <a href="{{ route('movies.index') }}">Фільми</a>
         <a href="{{ url('/now-playing') }}">Зараз у кіно</a>
         <a href="{{ url('/coming-soon') }}">Скоро у прокаті</a>
         <a href="{{ url('/sessions') }}">Сеанси</a>
