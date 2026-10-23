@@ -1,0 +1,130 @@
+.country-directory {
+    max-width: 960px;
+    margin: 24px auto;
+    padding: 0 16px;
+    font-family: Arial, sans-serif;
+    color: #222;
+}
+
+.country-directory table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.country-directory th,
+.country-directory td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.country-directory th {
+    background: #f3f4f6;
+}
+
+.country-directory a {
+    color: #1d4ed8;
+}
+
+.country-directory form > div {
+    margin-bottom: 16px;
+}
+
+.country-directory label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.country-directory input {
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    padding: 8px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    font: inherit;
+}
+
+.country-directory button {
+    padding: 8px 16px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    font: inherit;
+    cursor: pointer;
+}
+
+.country-directory .error {
+    margin: 6px 0 0;
+    color: #b91c1c;
+}
+
+.country-directory nav[role="navigation"] {
+    margin: 20px 0;
+}
+
+.country-directory nav[role="navigation"] > div:first-child {
+    display: none;
+}
+
+.country-directory nav[role="navigation"] > div:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.country-directory nav[role="navigation"] p {
+    margin: 0;
+}
+
+.country-directory nav[role="navigation"] > div:last-child > div:last-child > span {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.country-directory nav[role="navigation"] a,
+.country-directory nav[role="navigation"] span[aria-disabled] > span,
+.country-directory nav[role="navigation"] span[aria-current] > span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    min-height: 36px;
+    padding: 4px 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-decoration: none;
+    background: #fff;
+}
+
+.country-directory nav[role="navigation"] a:hover {
+    background: #eff6ff;
+}
+
+.country-directory nav[role="navigation"] a:focus-visible {
+    outline: 2px solid #1d4ed8;
+    outline-offset: 2px;
+}
+
+.country-directory nav[role="navigation"] span[aria-current] > span {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+    color: #fff;
+}
+
+.country-directory nav[role="navigation"] span[aria-disabled] > span {
+    color: #666;
+    background: #f3f4f6;
+}
+
+.country-directory nav[role="navigation"] svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}

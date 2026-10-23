@@ -2,11 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\MovieController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+//lab2 cases
 Route::get(
     '/say/{message?}',
     [SiteController::class, 'say']
@@ -31,7 +33,17 @@ Route::view(
     '/contact',
     'site.contact'
 )->name('site.contact');
+//-----------------------------------
 
+//lab3 cases
+use App\Http\Controllers\CountryController;
+Route::resource(
+    'country',
+    CountryController::class
+);
+//------------------------------------
+
+Route::resource('movies', MovieController::class);
 
 Route::get('/contact', [SiteController::class, 'contact'])
     ->name('contact.form');

@@ -1,0 +1,150 @@
+.movie-directory {
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.movie-directory h1 {
+    margin-top: 0;
+}
+
+.movie-directory a {
+    color: #f3b8ca;
+}
+
+.movie-directory .movie-table-wrapper {
+    overflow-x: auto;
+}
+
+.movie-directory table {
+    width: 100%;
+    min-width: 650px;
+    border-collapse: collapse;
+}
+
+.movie-directory th,
+.movie-directory td {
+    padding: 12px;
+    border-bottom: 1px solid #555;
+    text-align: left;
+}
+
+.movie-directory th {
+    background: #34212a;
+}
+
+.movie-directory .movie-field {
+    max-width: 600px;
+    margin-bottom: 18px;
+}
+
+.movie-directory label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.movie-directory input,
+.movie-directory select,
+.movie-directory textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #777;
+    border-radius: 4px;
+    background: #26262c;
+    color: #fff;
+    font: inherit;
+}
+
+.movie-directory textarea {
+    resize: vertical;
+}
+
+.movie-directory .movie-button {
+    display: inline-block;
+    padding: 10px 16px;
+    border: 1px solid #a34a65;
+    border-radius: 4px;
+    background: #7d2942;
+    color: #fff;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.movie-directory .movie-button:hover {
+    background: #963650;
+}
+
+.movie-directory .movie-delete {
+    background: #802f36;
+}
+
+.movie-directory .movie-filter {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 24px 0;
+}
+
+.movie-directory .movie-filter select {
+    min-width: 180px;
+}
+
+.movie-directory .movie-error {
+    margin: 6px 0 0;
+    color: #ffb0bd;
+}
+
+.movie-directory .movie-success {
+    padding: 12px;
+    border: 1px solid #538465;
+    border-radius: 4px;
+    background: #243a2b;
+    color: #c4f0d1;
+}
+
+.movie-directory .movie-description {
+    white-space: pre-wrap;
+}
+
+.movie-directory .movie-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.movie-directory .movie-pages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.movie-directory .movie-pages a,
+.movie-directory .movie-pages span {
+    padding: 6px 12px;
+    border: 1px solid #777;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.movie-directory .movie-pages [aria-current="page"] {
+    background: #7d2942;
+    color: #fff;
+}
+
+.movie-directory .movie-pages [aria-disabled="true"] {
+    color: #aaa;
+}
+
+.movie-directory a:focus-visible,
+.movie-directory button:focus-visible,
+.movie-directory input:focus-visible,
+.movie-directory select:focus-visible,
+.movie-directory textarea:focus-visible {
+    outline: 2px solid #f3b8ca;
+    outline-offset: 2px;
+}
