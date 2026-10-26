@@ -47,7 +47,7 @@ Route::resource(
 use App\Http\Middleware\TrackVisit;
 Route::get('/', function () {
     return view('welcome');
-})->middleware(TrackVisit::class);
+});
 
 use App\Http\Controllers\StatsController;
 Route::get('/stats',[StatsController::class, 'pages'])
