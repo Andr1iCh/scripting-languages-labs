@@ -48,6 +48,13 @@ use App\Http\Middleware\TrackVisit;
 Route::get('/', function () {
     return view('welcome');
 })->middleware(TrackVisit::class);
+
+use App\Http\Controllers\StatsController;
+Route::get('/stats',[StatsController::class, 'pages'])
+    ->name('stats.pages');
+
+Route::get('/stats/detail', [StatsController::class, 'detail'])
+    ->name('stats.detail');
 //-------------------------------------
 
 Route::resource('movies', MovieController::class);
