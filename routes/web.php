@@ -43,6 +43,13 @@ Route::resource(
 );
 //------------------------------------
 
+//lab4 cases
+use App\Http\Middleware\TrackVisit;
+Route::get('/', function () {
+    return view('welcome');
+})->middleware(TrackVisit::class);
+//-------------------------------------
+
 Route::resource('movies', MovieController::class);
 
 Route::get('/contact', [SiteController::class, 'contact'])
