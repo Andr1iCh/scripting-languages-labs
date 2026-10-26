@@ -21,4 +21,26 @@ class StatsController extends Controller
             ->get();
         return view('stats.pages', compact('rows', 'type'));
     }
+
+    public function detail(Request $request)
+    {
+        $type = $request->query('type', 'page');
+        $item = $request->query('item');
+        if (!in_array($type, ['page', 'ip'], true)) {
+            abort(400, 'Невідомий тип фільтрації.');
+        }
+        $rows = Tracker::query()
+            ->when(
+                $item,
+                fn ($query, $value) =>
+                $query->where($type, $value)
+            )
+            ->orderByDesc('visited_at')
+            ->paginate(15)
+            ->withQueryString();
+        return view(
+            'stats.detail',
+            compact('rows', 'type', 'item')
+        );
+    }
 }
