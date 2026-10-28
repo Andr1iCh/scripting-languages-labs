@@ -60,6 +60,10 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
         }
         footer {
+            position: sticky;
+            bottom: 0;
+            z-index: 10;
+            flex-shrink: 0;
             background: rgba(20, 20, 20, 0.85);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #bbb;
@@ -81,6 +85,7 @@
         <a href="{{ url('/now-playing') }}">Зараз у кіно</a>
         <a href="{{ url('/coming-soon') }}">Скоро у прокаті</a>
         <a href="{{ url('/sessions') }}">Сеанси</a>
+        <a href="{{ route('stats.pages') }}">Статистика</a>
         <div class="nav-right">
             <a href="{{ url('/contact') }}">Контакти</a>
             <a href="{{ url('/about') }}">Про застосунок</a>
