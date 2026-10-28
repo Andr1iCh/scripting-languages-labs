@@ -1,5 +1,9 @@
 @extends('layouts.app')
 @section('title', 'Статистика відвідувань')
+@section('main-class', 'stats')
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/stats.css') }}">
+@endpush
 @section('content')
     <h1>Статистика відвідувань</h1>
     <p>

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 @section('title', 'Детальна статистика')
+@section('main-class', 'stats')
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/stats.css') }}">
+@endpush
 @section('content')
     <h1>Детальна статистика</h1>
     <p>
@@ -30,5 +34,5 @@
         @endforeach
         </tbody>
     </table>
-    {{ $rows->links() }}
+    {{ $rows->links('stats.pagination') }}
 @endsection
