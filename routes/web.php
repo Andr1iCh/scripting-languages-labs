@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\StatsController;
+
+//cases
+use App\Http\Controllers\CountryController;
+//-------
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,27 +34,25 @@ Route::view(
     'site.about'
 )->name('site.about');
 
-Route::view(
-    '/contact',
-    'site.contact'
-)->name('site.contact');
 //-----------------------------------
 
 //lab3 cases
-use App\Http\Controllers\CountryController;
 Route::resource(
     'country',
     CountryController::class
 );
 //------------------------------------
 
-//lab4 cases
-use App\Http\Middleware\TrackVisit;
-Route::get('/', function () {
-    return view('welcome');
-});
 
-use App\Http\Controllers\StatsController;
+Route::resource('movies', MovieController::class);
+
+Route::get('/contact', [SiteController::class, 'contact'])
+    ->name('contact.form');
+
+Route::post('/contact', [SiteController::class, 'contactSubmit'])
+    ->name('contact.submit');
+
+//lab4 individual
 Route::get('/stats',[StatsController::class, 'pages'])
     ->name('stats.pages');
 
@@ -60,12 +63,3 @@ Route::get(
 
 Route::get('/stats/movies', [StatsController::class, 'movies'])
     ->name('stats.movies');
-//-------------------------------------
-
-Route::resource('movies', MovieController::class);
-
-Route::get('/contact', [SiteController::class, 'contact'])
-    ->name('contact.form');
-
-Route::post('/contact', [SiteController::class, 'contactSubmit'])
-    ->name('contact.submit');
