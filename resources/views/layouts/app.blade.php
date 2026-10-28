@@ -85,6 +85,7 @@
         <a href="{{ url('/now-playing') }}">Зараз у кіно</a>
         <a href="{{ url('/coming-soon') }}">Скоро у прокаті</a>
         <a href="{{ url('/sessions') }}">Сеанси</a>
+        <a href="{{ route('stats.pages') }}">Статистика</a>
         <div class="nav-right">
             <a href="{{ url('/contact') }}">Контакти</a>
             <a href="{{ url('/about') }}">Про застосунок</a>

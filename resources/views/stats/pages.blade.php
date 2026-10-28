@@ -13,6 +13,7 @@
         <a href="{{ route('stats.pages', ['type' => 'ip']) }}">
             За IP-адресами
         </a>
+        <a href="{{ route('stats.movies') }}">Популярність фільмів</a>
     </p>
     <table>
         <thead>

@@ -5,9 +5,9 @@ class Tracker extends Model
 {
     protected $table = 'tracker';
     public $timestamps = false;
-    protected $fillable = ['page', 'ip', 'status', 'visited_at'];
+    protected $fillable = ['page', 'ip', 'status', 'visited_at', 'metadata'];
     protected function casts(): array
     {
-        return ['visited_at' => 'datetime'];
+        return ['visited_at' => 'datetime', 'metadata' => 'array'];
     }
 }

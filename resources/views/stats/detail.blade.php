@@ -18,6 +18,7 @@
             <th>Сторінка</th>
             <th>IP</th>
             <th>Статус</th>
+            <th>HTTP-метод</th>
             <th>Дата і час</th>
         </tr>
         </thead>
@@ -27,6 +28,7 @@
                 <td>{{ $row->page }}</td>
                 <td>{{ $row->ip }}</td>
                 <td>{{ $row->status }}</td>
+                <td>{{ $row->metadata['method'] ?? '—' }}</td>
                 <td>
                     {{ $row->visited_at->format('d.m.Y H:i:s') }}
                 </td>

@@ -57,6 +57,9 @@ Route::get(
     '/stats/detail',
     [StatsController::class, 'detail']
 )->name('stats.detail');
+
+Route::get('/stats/movies', [StatsController::class, 'movies'])
+    ->name('stats.movies');
 //-------------------------------------
 
 Route::resource('movies', MovieController::class);

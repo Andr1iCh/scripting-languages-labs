@@ -4,8 +4,33 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tracker;
+use App\Models\Movie;
 class StatsController extends Controller
 {
+    public function movies()
+    {
+        $views = Tracker::query()
+            ->select('metadata->movie_id as movie_id')
+            ->selectRaw('COUNT(*) as views')
+            ->where('metadata->method', 'GET')
+            ->where('metadata->route', 'movies.show')
+            ->where('status', 200)
+            ->groupBy('metadata->movie_id');
+
+        $movies = Movie::query()
+            ->leftJoinSub($views, 'movie_views', function ($join) {
+                $join->on('movies.id', '=', 'movie_views.movie_id');
+            })
+            ->select('movies.*')
+            ->selectRaw('COALESCE(movie_views.views, 0) as views')
+            ->orderByDesc('views')
+            ->orderBy('movies.title')
+            ->orderBy('movies.id')
+            ->paginate(15);
+
+        return view('stats.movies', compact('movies'));
+    }
+
     public function pages(Request $request)
     {
         $type = $request->query('type', 'page');
