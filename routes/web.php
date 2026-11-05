@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\StatsController;
+
+//cases
+use App\Http\Controllers\CountryController;
+//-------
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,19 +34,15 @@ Route::view(
     'site.about'
 )->name('site.about');
 
-Route::view(
-    '/contact',
-    'site.contact'
-)->name('site.contact');
 //-----------------------------------
 
 //lab3 cases
-use App\Http\Controllers\CountryController;
 Route::resource(
     'country',
     CountryController::class
 );
 //------------------------------------
+
 
 Route::resource('movies', MovieController::class);
 
@@ -50,3 +51,15 @@ Route::get('/contact', [SiteController::class, 'contact'])
 
 Route::post('/contact', [SiteController::class, 'contactSubmit'])
     ->name('contact.submit');
+
+//lab4 individual
+Route::get('/stats',[StatsController::class, 'pages'])
+    ->name('stats.pages');
+
+Route::get(
+    '/stats/detail',
+    [StatsController::class, 'detail']
+)->name('stats.detail');
+
+Route::get('/stats/movies', [StatsController::class, 'movies'])
+    ->name('stats.movies');
