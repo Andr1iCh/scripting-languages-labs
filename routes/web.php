@@ -53,6 +53,13 @@ Route::resource('blog', BlogController::class);
 //------------------------------------
 
 Route::resource('movies', MovieController::class);
+Route::controller(\App\Http\Controllers\MovieTranslationController::class)
+    ->prefix('movies/{movie}/translations/{lang}')
+    ->where(['lang' => '[a-z]{2,3}'])
+    ->group(function () {
+        Route::get('/', 'edit')->name('movies.translations.edit');
+        Route::put('/', 'update')->name('movies.translations.update');
+    });
 
 Route::get('/contact', [SiteController::class, 'contact'])
     ->name('contact.form');
