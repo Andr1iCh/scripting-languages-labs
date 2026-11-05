@@ -7,6 +7,7 @@ use App\Http\Controllers\StatsController;
 
 //cases
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\BlogController;
 //-------
 
 Route::get('/', function () {
@@ -43,6 +44,13 @@ Route::resource(
 );
 //------------------------------------
 
+//lab5 cases
+Route::get(
+    '/blog/admin',
+    [BlogController::class, 'admin']
+)->name('blog.admin');
+Route::resource('blog', BlogController::class);
+//------------------------------------
 
 Route::resource('movies', MovieController::class);
 
@@ -52,7 +60,6 @@ Route::get('/contact', [SiteController::class, 'contact'])
 Route::post('/contact', [SiteController::class, 'contactSubmit'])
     ->name('contact.submit');
 
-//lab4 individual
 Route::get('/stats',[StatsController::class, 'pages'])
     ->name('stats.pages');
 
