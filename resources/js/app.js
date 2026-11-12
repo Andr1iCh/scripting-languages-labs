@@ -10,6 +10,10 @@ select2(window, $);
 duallistbox(window, $);
 
 $(function () {
+    $('#actors').select2({
+        width: '340px',
+        placeholder: 'Оберіть акторів',
+    });
     $('#filters').select2({
         width: '340px',
         placeholder: 'Оберіть мітки',
