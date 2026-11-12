@@ -5,6 +5,10 @@
         "build": "vite build",
         "dev": "vite"
     },
+    "dependencies": {
+        "jquery": "^3.7.1",
+        "select2": "^4.1.0"
+    },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
         "axios": "^1.7.4",

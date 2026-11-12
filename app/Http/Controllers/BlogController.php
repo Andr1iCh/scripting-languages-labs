@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Http\Requests\BlogRequest;
 use App\Models\Category;
+use App\Models\Filter;
 
 class BlogController extends Controller
 {
@@ -27,6 +28,10 @@ class BlogController extends Controller
         return view('blog.create', [
             'categories' => Category::orderBy('category_name')
                 ->pluck('category_name', 'category_id'),
+            'filters' => Filter::pluck(
+                'filter_name',
+                'filter_id'
+            ),
         ]);
     }
 
@@ -35,10 +40,17 @@ class BlogController extends Controller
      */
     public function store(BlogRequest $request)
     {
+        $data = $request->validated();
+
         $blog = Blog::create([
-            ...$request->validated(),
+            ...\Illuminate\Support\Arr::except($data, ['filters']),
             'user_id' => auth()->id(),
         ]);
+
+        $blog->filters()->sync(
+            $data['filters'] ?? []
+        );
+
         return redirect()->route('blog.show', $blog);
     }
 
@@ -55,10 +67,21 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
+        $blog->load('filters');
+
         return view('blog.edit', [
             'blog' => $blog,
-            'categories' => Category::orderBy('category_name')
-                ->pluck('category_name', 'category_id'),
+            'categories' => Category::pluck(
+                'category_name',
+                'category_id'
+            ),
+            'filters' => Filter::pluck(
+                'filter_name',
+                'filter_id'
+            ),
+            'selected' => $blog->filters
+                ->pluck('filter_id')
+                ->all(),
         ]);
     }
 
@@ -67,7 +90,18 @@ class BlogController extends Controller
      */
     public function update(BlogRequest $request, Blog $blog)
     {
-        $blog->update($request->validated());
+        $data = $request->validated();
+
+        $blog->update(
+            \Illuminate\Support\Arr::except(
+                $data,
+                ['filters']
+            )
+        );
+
+        $blog->filters()->sync(
+            $data['filters'] ?? []
+        );
 
         return redirect()->route('blog.show', $blog);
     }
