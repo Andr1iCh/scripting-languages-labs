@@ -6,6 +6,7 @@ use App\Models\Blog;
 use App\Http\Requests\BlogRequest;
 use App\Models\Category;
 use App\Models\Filter;
+use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
@@ -114,6 +115,38 @@ class BlogController extends Controller
         $blog->delete();
 
         return redirect()->route('blog.create');
+    }
+
+    public function tags(Blog $blog)
+    {
+        $blog->load('filters');
+
+        return view('blog.tags', [
+            'blog' => $blog,
+            'filters' => Filter::pluck(
+                'filter_name',
+                'filter_id'
+            ),
+            'selected' => $blog->filters
+                ->pluck('filter_id')
+                ->all(),
+        ]);
+    }
+
+    public function tagsStore(Request $request, Blog $blog)
+    {
+        $data = $request->validate([
+            'filters' => ['sometimes', 'array'],
+            'filters.*' => [
+                'integer',
+                'distinct',
+                'exists:filter,filter_id',
+            ],
+        ]);
+
+        $blog->filters()->sync($data['filters'] ?? []);
+
+        return redirect()->route('blog.show', $blog);
     }
 
     public function admin()

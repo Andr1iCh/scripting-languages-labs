@@ -6,6 +6,7 @@
         "dev": "vite"
     },
     "dependencies": {
+        "bootstrap4-duallistbox": "^4.0.2",
         "jquery": "^3.7.1",
         "select2": "^4.1.0"
     },

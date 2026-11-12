@@ -56,7 +56,17 @@ Route::resource('blog', BlogController::class);
 //lab6 cases
 Route::resource('filters', FilterController::class)
     ->except(['show']);
+Route::get(
+    '/blog/{blog}/tags',
+    [BlogController::class, 'tags']
+)->name('blog.tags');
+
+Route::post(
+    '/blog/{blog}/tags',
+    [BlogController::class, 'tagsStore']
+)->name('blog.tags.store');
 //------------------------------------
+
 Route::resource('movies', MovieController::class);
 Route::controller(\App\Http\Controllers\MovieTranslationController::class)
     ->prefix('movies/{movie}/translations/{lang}')
