@@ -8,6 +8,7 @@ use App\Http\Controllers\StatsController;
 //cases
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\FilterController;
 //-------
 
 Route::get('/', function () {
@@ -52,6 +53,10 @@ Route::get(
 Route::resource('blog', BlogController::class);
 //------------------------------------
 
+//lab6 cases
+Route::resource('filters', FilterController::class)
+    ->except(['show']);
+//------------------------------------
 Route::resource('movies', MovieController::class);
 Route::controller(\App\Http\Controllers\MovieTranslationController::class)
     ->prefix('movies/{movie}/translations/{lang}')

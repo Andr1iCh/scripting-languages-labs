@@ -2,6 +2,7 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Blog extends Model
 {
     protected $table = 'blog';
@@ -15,6 +16,15 @@ class Blog extends Model
         'category_id',
         'user_id',
     ];
+    public function filters(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Filter::class,
+            'blog_filter',
+            'blog_id',
+            'filter_id'
+        );
+    }
     public function category(): BelongsTo
     {
         return $this->belongsTo(
