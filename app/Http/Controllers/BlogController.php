@@ -13,12 +13,36 @@ class BlogController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $blogs = Blog::with(['category', 'author'])
+        $request->validate([
+            'filter' => [
+                'nullable',
+                'integer',
+                'exists:filter,filter_id',
+            ],
+        ]);
+
+        $filterId = $request->query('filter');
+
+        $blogs = Blog::query()
+            ->with(['category', 'author', 'filters'])
+            ->when(
+                $filterId,
+                fn ($query) => $query->whereHas(
+                    'filters',
+                    fn ($q) => $q->whereKey($filterId)
+                )
+            )
             ->orderByDesc('dt_created')
-            ->paginate(6);
-        return view('blog.index', compact('blogs'));
+            ->paginate(6)
+            ->withQueryString();
+
+        $filters = Filter::pluck('filter_name', 'filter_id');
+
+        return view('blog.index', compact(
+            'blogs', 'filters', 'filterId'
+        ));
     }
 
     /**
