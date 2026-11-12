@@ -15,6 +15,7 @@
         <p><a class="movie-button" href="{{ route('movies.create') }}">Додати фільм</a></p>
 
         <form class="movie-filter" method="GET" action="{{ route('movies.index') }}">
+            @include('movies._language')
             <div>
                 <label for="genre">Жанр</label>
                 <select id="genre" name="genre">
@@ -25,7 +26,7 @@
                 </select>
             </div>
             <button class="movie-button" type="submit">Застосувати</button>
-            <a href="{{ route('movies.index') }}">Скинути фільтр</a>
+            <a href="{{ route('movies.index', ['lang' => $lang]) }}">Скинути фільтр</a>
         </form>
 
         <div class="movie-table-wrapper">
@@ -44,7 +45,11 @@
                     @forelse ($movies as $i => $movie)
                         <tr>
                             <td>{{ $movies->firstItem() + $i }}</td>
-                            <td><a href="{{ route('movies.show', $movie) }}">{{ $movie->title }}</a></td>
+                            <td>
+                                <a href="{{ route('movies.show', ['movie' => $movie, 'lang' => $lang]) }}">
+                                    {{ $movie->translations->first()?->title ?? $movie->title }}
+                                </a>
+                            </td>
                             <td>{{ $movie->genre }}</td>
                             <td>{{ $movie->release_year }}</td>
                             <td>{{ $movie->duration }} хв</td>
