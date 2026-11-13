@@ -34,6 +34,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Кількість акторів</th>
                         <th>Назва</th>
                         <th>Жанр</th>
                         <th>Рік</th>
@@ -45,6 +46,7 @@
                     @forelse ($movies as $i => $movie)
                         <tr>
                             <td>{{ $movies->firstItem() + $i }}</td>
+                            <td>{{ $movie->actors_count }}</td>
                             <td>
                                 <a href="{{ route('movies.show', ['movie' => $movie, 'lang' => $lang]) }}">
                                     {{ $movie->translations->first()?->title ?? $movie->title }}
@@ -57,7 +59,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6">Фільмів не знайдено.</td>
+                            <td colspan="7">Фільмів не знайдено.</td>
                         </tr>
                     @endforelse
                 </tbody>

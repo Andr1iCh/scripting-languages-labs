@@ -16,6 +16,8 @@ class MovieRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:150'],
             'genre' => ['required', 'string', 'max:60'],
+            'actors' => ['sometimes', 'array'],
+            'actors.*' => ['integer', 'distinct', 'exists:actors,id'],
             'director' => ['required', 'string', 'max:100'],
             'release_year' => ['required', 'integer', 'min:1888', 'max:' . ((int) date('Y') + 5)],
             'duration' => ['required', 'integer', 'min:1', 'max:600'],

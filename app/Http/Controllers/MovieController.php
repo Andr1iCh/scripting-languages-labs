@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MovieRequest;
 use App\Models\Movie;
 use App\Models\MovieTranslation;
+use App\Models\Actor;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller
@@ -19,6 +21,7 @@ class MovieController extends Controller
         $lang = $this->language($request);
         $languages = $this->languages();
         $query = Movie::with(['translations' => fn ($query) => $query->where('lang', $lang)])
+            ->withCount('actors')
             ->withExists(['translations as has_translation' => fn ($query) => $query->where('lang', $lang)])
             ->orderByDesc('has_translation')
             ->orderBy('title')->orderBy('id');
@@ -35,12 +38,16 @@ class MovieController extends Controller
 
     public function create()
     {
-        return view('movies.create');
+        return view('movies.create', [
+            'actors' => Actor::orderBy('name')->pluck('name', 'id'),
+        ]);
     }
 
     public function store(MovieRequest $request)
     {
-        Movie::create($request->validated());
+        $data = $request->validated();
+        $movie = Movie::create(Arr::except($data, ['actors']));
+        $movie->actors()->sync($data['actors'] ?? []);
 
         return redirect()->route('movies.index')
             ->with('success', 'Фільм додано.');
@@ -48,6 +55,7 @@ class MovieController extends Controller
 
     public function show(Request $request, Movie $movie)
     {
+        $movie->load('actors');
         $lang = $this->language($request);
         $translation = $movie->translations()->where('lang', $lang)->first();
         $languages = $this->languages();
@@ -71,12 +79,20 @@ class MovieController extends Controller
 
     public function edit(Movie $movie)
     {
-        return view('movies.edit', compact('movie'));
+        $movie->load('actors');
+
+        return view('movies.edit', [
+            'movie' => $movie,
+            'actors' => Actor::orderBy('name')->pluck('name', 'id'),
+            'selected' => $movie->actors->pluck('id')->all(),
+        ]);
     }
 
     public function update(MovieRequest $request, Movie $movie)
     {
-        $movie->update($request->validated());
+        $data = $request->validated();
+        $movie->update(Arr::except($data, ['actors']));
+        $movie->actors()->sync($data['actors'] ?? []);
 
         return redirect()->route('movies.index')
             ->with('success', 'Зміни збережено.');

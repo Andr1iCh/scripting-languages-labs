@@ -18,6 +18,15 @@
         <p><strong>Короткий опис:</strong></p>
         <p class="movie-description">{{ $translation?->description ?? $movie->description ?? 'Опис ще не додано.' }}</p>
 
+        <p><strong>Актори:</strong></p>
+        <ul>
+            @forelse ($movie->actors as $actor)
+                <li>{{ $actor->name }}</li>
+            @empty
+                <li>Акторів не вказано.</li>
+            @endforelse
+        </ul>
+
         @if ($lang !== 'uk')
             <p><a href="{{ route('movies.translations.edit', [$movie, $lang]) }}">
                 {{ $translation ? 'Редагувати переклад' : 'Додати переклад' }} ({{ $lang }})

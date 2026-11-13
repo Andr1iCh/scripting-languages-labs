@@ -8,6 +8,7 @@ use App\Http\Controllers\StatsController;
 //cases
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\FilterController;
 //-------
 
 Route::get('/', function () {
@@ -50,6 +51,20 @@ Route::get(
     [BlogController::class, 'admin']
 )->name('blog.admin');
 Route::resource('blog', BlogController::class);
+//------------------------------------
+
+//lab6 cases
+Route::resource('filters', FilterController::class)
+    ->except(['show']);
+Route::get(
+    '/blog/{blog}/tags',
+    [BlogController::class, 'tags']
+)->name('blog.tags');
+
+Route::post(
+    '/blog/{blog}/tags',
+    [BlogController::class, 'tagsStore']
+)->name('blog.tags.store');
 //------------------------------------
 
 Route::resource('movies', MovieController::class);

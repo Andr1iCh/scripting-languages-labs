@@ -1,4 +1,22 @@
 <div class="movie-field">
+    <label for="actors">Актори</label>
+    <select id="actors" name="actors[]" multiple>
+        @foreach ($actors as $id => $name)
+            <option value="{{ $id }}"
+                @selected(in_array($id, old('actors', $selected ?? [])))>
+                {{ $name }}
+            </option>
+        @endforeach
+    </select>
+    @error('actors')
+        <p class="movie-error">{{ $message }}</p>
+    @enderror
+    @error('actors.*')
+        <p class="movie-error">{{ $message }}</p>
+    @enderror
+</div>
+
+<div class="movie-field">
     <label for="title">Назва</label>
     <input id="title" name="title" type="text" maxlength="150"
            value="{{ old('title', $movie->title ?? '') }}" required>
