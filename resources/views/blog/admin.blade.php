@@ -2,6 +2,30 @@
 @section('title', 'Адміністрування блогу')
 @push('styles')
     <style>
+        .blog-admin-filters {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: end;
+            gap: 8px 12px;
+            margin-top: 12px;
+        }
+
+        .blog-admin-filters label {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .blog-admin-filters input,
+        .blog-admin-filters select,
+        .blog-admin-filters button {
+            padding: 4px 8px;
+            border: 1px solid #666;
+            border-radius: 4px;
+            background: #24242a;
+            color: inherit;
+        }
+
         .blog-admin-table {
             margin-top: 12px;
         }
@@ -29,6 +53,48 @@
             Додати запис
         </a>
     </p>
+    <form class="blog-admin-filters" method="GET" action="{{ route('blog.admin') }}">
+        <label for="title">
+            Заголовок
+            <input type="text" id="title" name="title"
+                   value="{{ request('title') }}" placeholder="Пошук за заголовком">
+        </label>
+
+        <label for="categoryName">
+            Назва категорії
+            <input type="text" id="categoryName" name="categoryName"
+                   value="{{ request('categoryName') }}" placeholder="Назва категорії">
+        </label>
+
+        <label for="category_id">
+            Категорія
+            <select id="category_id" name="category_id">
+                <option value="">Усі категорії</option>
+                @foreach ($categories as $id => $name)
+                    <option value="{{ $id }}" @selected(request('category_id') == $id)>
+                        {{ $name }}
+                    </option>
+                @endforeach
+            </select>
+        </label>
+
+        <label for="filter_id">
+            Мітка
+            <select id="filter_id" name="filter_id">
+                <option value="">Усі мітки</option>
+                @foreach ($filters as $id => $name)
+                    <option value="{{ $id }}" @selected(request('filter_id') == $id)>
+                        {{ $name }}
+                    </option>
+                @endforeach
+            </select>
+        </label>
+
+        <input type="hidden" name="sort" value="{{ request('sort') }}">
+        <button type="submit">Застосувати</button>
+        <a href="{{ route('blog.admin') }}">Скинути фільтри</a>
+    </form>
+
     @php
         $currentSort = request('sort');
 
