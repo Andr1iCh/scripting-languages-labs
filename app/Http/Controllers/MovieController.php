@@ -6,11 +6,28 @@ use App\Http\Requests\MovieRequest;
 use App\Models\Movie;
 use App\Models\MovieTranslation;
 use App\Models\Actor;
+use App\Queries\MovieFilter;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller
 {
+    public function admin(Request $request, MovieFilter $filter)
+    {
+        $input = $request->validate([
+            'title' => ['nullable', 'string', 'max:150'],
+            'director' => ['nullable', 'string', 'max:100'],
+            'actorName' => ['nullable', 'string', 'max:100'],
+            'actor_id' => ['nullable', 'integer', 'exists:actors,id'],
+            'sort' => ['nullable', 'in:title,-title,actors,-actors'],
+        ]);
+
+        return view('movies.admin', [
+            'movies' => $filter->apply($input)->paginate(5)->withQueryString(),
+            'actors' => Actor::orderBy('name')->pluck('name', 'id'),
+        ]);
+    }
+
     public function index(Request $request)
     {
         $request->validate([

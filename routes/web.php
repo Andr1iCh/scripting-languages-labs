@@ -67,6 +67,7 @@ Route::post(
 )->name('blog.tags.store');
 //------------------------------------
 
+Route::get('/movies/admin', [MovieController::class, 'admin'])->name('movies.admin');
 Route::resource('movies', MovieController::class);
 Route::controller(\App\Http\Controllers\MovieTranslationController::class)
     ->prefix('movies/{movie}/translations/{lang}')
