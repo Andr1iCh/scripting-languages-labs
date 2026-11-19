@@ -13,6 +13,7 @@
             <th>№</th>
             <th>Заголовок</th>
             <th>Категорія</th>
+            <th>Мітки</th>
             <th>Дата</th>
             <th>Дії</th>
         </tr>
@@ -28,6 +29,15 @@
                 </td>
                 <td>
                     {{ $blog->category?->category_name ?? '—' }}
+                </td>
+                <td>
+                    @forelse ($blog->filters as $filter)
+                        <span class="tag">
+                            {{ $filter->filter_name }}
+                        </span>
+                    @empty
+                        —
+                    @endforelse
                 </td>
                 <td>
                     {{ $blog->dt_created->format('d.m.Y') }}
@@ -46,7 +56,7 @@
             </tr>
         @empty
             <tr>
-                <td colspan="5">Записів немає.</td>
+                <td colspan="6">Записів немає.</td>
             </tr>
         @endforelse
         </tbody>
