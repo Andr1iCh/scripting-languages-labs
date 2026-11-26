@@ -106,6 +106,15 @@ class MovieSeeder extends Seeder
                 'duration' => 99,
                 'description' => 'Загублений квиток стає початком несподіваного знайомства.',
             ],
+            [
+                'title' => 'Світло за обрієм',
+                'genre' => 'Пригоди',
+                'director' => 'Марія Коваль',
+                'release_year' => 2027,
+                'release_date' => '2027-02-12',
+                'duration' => 104,
+                'description' => 'Демонстраційна прем’єра. Команда дослідників вирушає до покинутого маяка.',
+            ],
         ];
 
         foreach ($movies as $movie) {

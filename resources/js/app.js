@@ -1,9 +1,13 @@
 import './bootstrap';
+import Alpine from 'alpinejs';
 import $ from 'jquery';
 import select2 from 'select2';
 import 'select2/dist/css/select2.css';
 import duallistbox from 'bootstrap4-duallistbox';
 import 'bootstrap4-duallistbox/dist/bootstrap-duallistbox.css';
+
+window.Alpine = Alpine;
+Alpine.start();
 
 window.$ = window.jQuery = $;
 select2(window, $);

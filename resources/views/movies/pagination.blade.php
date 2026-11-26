@@ -2,7 +2,7 @@
     <div class="movie-pagination" role="navigation" aria-label="Навігація сторінками">
         <p>
             Показано {{ $paginator->firstItem() ?? 0 }}–{{ $paginator->lastItem() ?? 0 }}
-            із {{ $paginator->total() }} фільмів
+            із {{ $paginator->total() }} {{ $itemLabel ?? 'фільмів' }}
         </p>
         <div class="movie-pages">
             @if ($paginator->onFirstPage())

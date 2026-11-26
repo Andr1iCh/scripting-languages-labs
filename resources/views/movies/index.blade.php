@@ -1,20 +1,27 @@
 @extends('layouts.app')
-@section('title', 'Фільми')
+@section('title', $heading)
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/movies.css') }}">
 @endpush
 
 @section('content')
     <div class="movie-directory">
-        <h1>Фільми</h1>
+        <h1>{{ $heading }}</h1>
+        @if (request()->routeIs('movies.now-playing'))
+            <p>Фільми з каталогу, які вже вийшли.</p>
+        @elseif (request()->routeIs('movies.coming-soon'))
+            <p>Фільми з майбутньою датою або роком виходу.</p>
+        @endif
 
         @if (session('success'))
             <p class="movie-success" role="status">{{ session('success') }}</p>
         @endif
 
-        <p><a class="movie-button" href="{{ route('movies.create') }}">Додати фільм</a></p>
+        @auth
+            <p><a class="movie-button" href="{{ route('movies.create') }}">Додати фільм</a></p>
+        @endauth
 
-        <form class="movie-filter" method="GET" action="{{ route('movies.index') }}">
+        <form class="movie-filter" method="GET" action="{{ route($listRoute) }}">
             @include('movies._language')
             <div>
                 <label for="genre">Жанр</label>
@@ -26,7 +33,7 @@
                 </select>
             </div>
             <button class="movie-button" type="submit">Застосувати</button>
-            <a href="{{ route('movies.index', ['lang' => $lang]) }}">Скинути фільтр</a>
+            <a href="{{ route($listRoute, ['lang' => $lang]) }}">Скинути фільтр</a>
         </form>
 
         <div class="movie-table-wrapper">
@@ -37,9 +44,11 @@
                         <th>Кількість акторів</th>
                         <th>Назва</th>
                         <th>Жанр</th>
-                        <th>Рік</th>
+                        <th>Вихід</th>
                         <th>Тривалість</th>
-                        <th>Дії</th>
+                        @auth
+                            <th>Дії</th>
+                        @endauth
                     </tr>
                 </thead>
                 <tbody>
@@ -53,13 +62,15 @@
                                 </a>
                             </td>
                             <td>{{ $movie->genre }}</td>
-                            <td>{{ $movie->release_year }}</td>
+                            <td>{{ $movie->release_date?->format('d.m.Y') ?? $movie->release_year }}</td>
                             <td>{{ $movie->duration }} хв</td>
-                            <td><a href="{{ route('movies.edit', $movie) }}">Редагувати</a></td>
+                            @auth
+                                <td><a href="{{ route('movies.edit', $movie) }}">Редагувати</a></td>
+                            @endauth
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7">Фільмів не знайдено.</td>
+                            <td colspan="{{ auth()->check() ? 7 : 6 }}">Фільмів не знайдено.</td>
                         </tr>
                     @endforelse
                 </tbody>
