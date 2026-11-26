@@ -17,11 +17,14 @@
         @endforelse
     </div>
 
-    <p><a href="{{ route('blog.edit', $blog) }}">Редагувати</a></p>
-    <p><a href="{{ route('blog.create') }}">Додати запис</a></p>
-    <form method="POST" action="{{ route('blog.destroy', $blog) }}">
-        @csrf
-        @method('DELETE')
-        <button type="submit">Видалити</button>
-    </form>
+    @auth
+        <p><a href="{{ route('blog.edit', $blog) }}">Редагувати</a></p>
+        <p><a href="{{ route('blog.tags', $blog) }}">Редагувати мітки</a></p>
+        <p><a href="{{ route('blog.create') }}">Додати запис</a></p>
+        <form method="POST" action="{{ route('blog.destroy', $blog) }}">
+            @csrf
+            @method('DELETE')
+            <button type="submit">Видалити</button>
+        </form>
+    @endauth
 @endsection

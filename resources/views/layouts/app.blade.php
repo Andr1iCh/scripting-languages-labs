@@ -34,14 +34,78 @@
             text-decoration: underline;
         }
 
-        .nav-right {
-            margin-left: auto;
-            display: flex;
-            gap: 20px;
+        .site-nav {
+            flex-wrap: wrap;
+            gap: 8px 16px;
+            position: relative;
+            z-index: 20;
+            color: #fff;
         }
 
-        .nav-right a {
+        .site-nav .nav-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+        }
+
+        .site-nav a {
             margin-right: 0;
+        }
+
+        .site-nav details {
+            position: relative;
+        }
+
+        .site-nav summary {
+            padding: 6px 0;
+            cursor: pointer;
+        }
+
+        .site-nav .site-submenu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 195px;
+            padding: 6px;
+            border: 1px solid #724252;
+            border-radius: 6px;
+            background: #301e27;
+        }
+
+        .nav-right .site-submenu {
+            left: auto;
+            right: 0;
+        }
+
+        .site-submenu a,
+        .site-submenu button {
+            display: block;
+            width: 100%;
+            padding: 8px 10px;
+            text-align: left;
+        }
+
+        .site-submenu a:hover,
+        .site-submenu button:hover {
+            background: #5b1a2b;
+        }
+
+        .site-submenu button {
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            .site-nav .nav-right {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .nav-right .site-submenu {
+                left: 0;
+                right: auto;
+            }
         }
         main {
             flex: 1;
@@ -58,6 +122,41 @@
             -webkit-backdrop-filter: blur(8px);
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        .account-main {
+            max-width: 760px;
+        }
+
+        .account-main > header h2 {
+            color: inherit;
+        }
+
+        .account-form {
+            max-width: 420px;
+            margin: auto;
+            padding: 24px;
+            border-radius: 8px;
+            background: #fff;
+            color: #282029;
+        }
+
+        .account-main .form-input {
+            color: #1f2937;
+            background-color: #fff;
+            color-scheme: light;
+        }
+
+        .account-main .form-input::placeholder {
+            color: #606b7b;
+        }
+
+        .account-main button.bg-gray-800 {
+            background: #7d2942;
+        }
+
+        .account-main button.bg-gray-800:hover {
+            background: #963650;
         }
         footer {
             position: sticky;
@@ -81,21 +180,48 @@
     @stack('styles')
 </head>
 <body>
-<nav>
-    @hasSection('navigation')
-        @yield('navigation')
-    @else
-        <a href="{{ url('/') }}">Головна</a>
-        <a href="{{ route('movies.index') }}">Фільми</a>
-        <a href="{{ url('/now-playing') }}">Зараз у кіно</a>
-        <a href="{{ url('/coming-soon') }}">Скоро у прокаті</a>
-        <a href="{{ route('movies.admin') }}">Керування фільмами</a>
-        <a href="{{ route('stats.pages') }}">Статистика</a>
-        <div class="nav-right">
-            <a href="{{ url('/contact') }}">Контакти</a>
-            <a href="{{ url('/about') }}">Про застосунок</a>
+<nav class="site-nav">
+    <a href="{{ url('/') }}">Головна</a>
+    <details>
+        <summary>Афіша</summary>
+        <div class="site-submenu">
+            <a href="{{ route('movies.index') }}">Усі фільми</a>
+            <a href="{{ route('movies.now-playing') }}">Зараз у кіно</a>
+            <a href="{{ route('movies.coming-soon') }}">Скоро у прокаті</a>
         </div>
-    @endif
+    </details>
+    <a href="{{ route('blog.index') }}">Блог</a>
+    <a href="{{ route('contact.form') }}">Контакти</a>
+    <a href="{{ route('site.about') }}">Про застосунок</a>
+    <div class="nav-right">
+        @auth
+            <details>
+                <summary>Керування</summary>
+                <div class="site-submenu">
+                    <a href="{{ route('movies.admin') }}">Керування фільмами</a>
+                    <a href="{{ route('blog.admin') }}">Керування блогом</a>
+                    <a href="{{ route('filters.index') }}">Мітки блогу</a>
+                    <a href="{{ route('users.index') }}">Користувачі</a>
+                    <a href="{{ route('stats.pages') }}">Статистика</a>
+                </div>
+            </details>
+            <details>
+                <summary>Обліковий запис</summary>
+                <div class="site-submenu">
+                    <a href="{{ route('dashboard') }}">Особистий кабінет</a>
+                    <a href="{{ route('profile.edit') }}">Мій профіль</a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit">Вийти</button>
+                    </form>
+                </div>
+            </details>
+        @endauth
+        @guest
+            <a href="{{ route('login') }}">Увійти</a>
+            <a href="{{ route('register') }}">Реєстрація</a>
+        @endguest
+    </div>
 </nav>
 
 <main class="@yield('main-class')">

@@ -44,10 +44,14 @@
 </div>
 
 <div class="movie-field">
-    <label for="release_year">Рік виходу</label>
-    <input id="release_year" name="release_year" type="number" min="1888" max="{{ (int) date('Y') + 5 }}"
-           value="{{ old('release_year', $movie->release_year ?? '') }}" required>
-    @error('release_year')
+    <label for="release_date">Дата виходу</label>
+    <input id="release_date" name="release_date" type="date"
+           value="{{ old('release_date', isset($movie) ? $movie->release_date?->toDateString() : '') }}"
+           @required(!isset($movie) || $movie->release_date !== null)>
+    @if (isset($movie) && $movie->release_date === null)
+        <p>Збережений рік виходу — {{ $movie->release_year }}. Якщо точна дата невідома, поле можна залишити порожнім.</p>
+    @endif
+    @error('release_date')
         <p class="movie-error">{{ $message }}</p>
     @enderror
 </div>

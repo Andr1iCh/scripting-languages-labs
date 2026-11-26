@@ -13,7 +13,7 @@
         </form>
         <p><strong>Жанр:</strong> {{ $movie->genre }}</p>
         <p><strong>Режисер:</strong> {{ $movie->director }}</p>
-        <p><strong>Рік виходу:</strong> {{ $movie->release_year }}</p>
+        <p><strong>Вихід:</strong> {{ $movie->release_date?->format('d.m.Y') ?? $movie->release_year }}</p>
         <p><strong>Тривалість:</strong> {{ $movie->duration }} хв</p>
         <p><strong>Короткий опис:</strong></p>
         <p class="movie-description">{{ $translation?->description ?? $movie->description ?? 'Опис ще не додано.' }}</p>
@@ -27,19 +27,21 @@
             @endforelse
         </ul>
 
-        @if ($lang !== 'uk')
-            <p><a href="{{ route('movies.translations.edit', [$movie, $lang]) }}">
-                {{ $translation ? 'Редагувати переклад' : 'Додати переклад' }} ({{ $lang }})
-            </a></p>
-        @endif
+        @auth
+            @if ($lang !== 'uk')
+                <p><a href="{{ route('movies.translations.edit', [$movie, $lang]) }}">
+                    {{ $translation ? 'Редагувати переклад' : 'Додати переклад' }} ({{ $lang }})
+                </a></p>
+            @endif
 
-        <p><a class="movie-button" href="{{ route('movies.edit', $movie) }}">Редагувати</a></p>
+            <p><a class="movie-button" href="{{ route('movies.edit', $movie) }}">Редагувати</a></p>
 
-        <form method="POST" action="{{ route('movies.destroy', $movie) }}">
-            @csrf
-            @method('DELETE')
-            <button class="movie-button movie-delete" type="submit">Видалити фільм</button>
-        </form>
+            <form method="POST" action="{{ route('movies.destroy', $movie) }}">
+                @csrf
+                @method('DELETE')
+                <button class="movie-button movie-delete" type="submit">Видалити фільм</button>
+            </form>
+        @endauth
 
         <p><a href="{{ route('movies.index', ['lang' => $lang]) }}">Повернутися до списку</a></p>
     </div>

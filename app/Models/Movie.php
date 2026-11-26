@@ -13,9 +13,12 @@ class Movie extends Model
         'genre',
         'director',
         'release_year',
+        'release_date',
         'duration',
         'description',
     ];
+
+    protected $casts = ['release_date' => 'date'];
 
     public function actors(): BelongsToMany
     {

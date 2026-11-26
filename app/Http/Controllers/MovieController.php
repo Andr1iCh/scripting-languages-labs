@@ -35,9 +35,31 @@ class MovieController extends Controller
         ]);
 
         $genre = $request->query('genre');
+        $listRoute = $request->route()->getName();
+        $heading = match ($listRoute) {
+            'movies.now-playing' => 'Зараз у кіно',
+            'movies.coming-soon' => 'Скоро у прокаті',
+            default => 'Фільми',
+        };
         $lang = $this->language($request);
         $languages = $this->languages();
-        $query = Movie::with(['translations' => fn ($query) => $query->where('lang', $lang)])
+        $query = Movie::query();
+
+        if ($listRoute !== 'movies.index') {
+            $today = today();
+            $operator = $listRoute === 'movies.coming-soon' ? '>' : '<=';
+
+            $query->where(function ($query) use ($today, $operator) {
+                $query->whereDate('release_date', $operator, $today->toDateString())
+                    ->orWhere(function ($query) use ($today, $operator) {
+                        $query->whereNull('release_date')
+                            ->where('release_year', $operator, $today->year);
+                    });
+            });
+        }
+
+        $genres = (clone $query)->distinct()->orderBy('genre')->pluck('genre');
+        $query->with(['translations' => fn ($query) => $query->where('lang', $lang)])
             ->withCount('actors')
             ->withExists(['translations as has_translation' => fn ($query) => $query->where('lang', $lang)])
             ->orderByDesc('has_translation')
@@ -48,9 +70,9 @@ class MovieController extends Controller
         }
 
         $movies = $query->paginate(5)->withQueryString();
-        $genres = Movie::query()->distinct()->orderBy('genre')->pluck('genre');
-
-        return view('movies.index', compact('movies', 'genres', 'genre', 'lang', 'languages'));
+        return view('movies.index', compact(
+            'movies', 'genres', 'genre', 'lang', 'languages', 'heading', 'listRoute'
+        ));
     }
 
     public function create()

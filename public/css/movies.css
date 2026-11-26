@@ -21,6 +21,10 @@
     border-collapse: collapse;
 }
 
+.movie-directory .users-table {
+    min-width: 0;
+}
+
 .movie-directory th,
 .movie-directory td {
     padding: 12px;

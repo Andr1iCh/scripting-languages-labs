@@ -7,6 +7,7 @@
 @section('content')
     <div class="movie-directory">
         <h1>Керування фільмами</h1>
+        <p><a class="movie-button" href="{{ route('movies.create') }}">Додати фільм</a></p>
 
         <form class="movie-filter" method="GET" action="{{ route('movies.admin') }}">
             <div>
